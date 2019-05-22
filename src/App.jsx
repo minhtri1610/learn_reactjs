@@ -1,56 +1,37 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 class App extends React.Component {
-    constructor(pops){
-        super(pops);
+    constructor(props){
+        super();
         this.state = {
-            data: 0
+            data: ''
         }
-        this.setNewNumber = this.setNewNumber.bind(this)
+        this.updateState = this.updateStateVal.bind(this);
+        this.clearInput = this.clearInput.bind(this);
     };
-    setNewNumber(){
-        this.setState({data: this.state.data + 1})
+    updateStateVal(e){
+        this.setState({data:e.target.value});
+    }
+    clearInput(){
+        this.setState({
+            data: ''
+        });
+        ReactDOM.findDOMNode(this.refs.myInput).focus();
     }
     render(){
         return(
             <div>
-                <button onClick = {this.setNewNumber}>INCREMENT</button>
-                <Content myNumber = {this.state.data}></Content>
+                <input type="text" value = {this.setState.data} onChange = {this.updateState} ref = "myInput"/>
+                <button onClick = {this.clearInput}>Clear</button>
+                <h4>{this.state.data}</h4>
             </div>
         )
     }
 }
 
 class Content extends React.Component{
-    componentWillMount(){
-        alert('1 will mount');
-    }
-    componentDidMount(){
-        alert('2 did mount');
-    }
-    componentWillReceiveProps(nextProps){
-        alert('3 will receive props');
-        // console.log('3' + nextProps);
-    }
-    shouldComponentUpdate(nextProps, nextState){
-        return true;
-    }
-    componentWillUpdate(nextProps, nextState){
-        alert('4 ');
-    }
-    componentDidUpdate(prevProps, prevState){
-        alert(5);
-    }
-    componentWillUnmount() {
-        alert(6);
-    }
-    render(){
-        return(
-            <div>
-                <h3>{this.props.myNumber}</h3>
-            </div>
-        )
-    }
+    
 }
 
 export default App;
