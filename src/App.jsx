@@ -1,56 +1,52 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import { Router, Route, Link} from 'react-router-dom';
 
 class App extends React.Component {
     constructor(pops){
         super(pops);
-        this.state = {
-            data: 0
-        }
-        this.setNewNumber = this.setNewNumber.bind(this)
+        
     };
-    setNewNumber(){
-        this.setState({data: this.state.data + 1})
-    }
     render(){
         return(
             <div>
-                <button onClick = {this.setNewNumber}>INCREMENT</button>
-                <Content myNumber = {this.state.data}></Content>
+                <ul>
+                    <li><Link to="/home">Home</Link></li>
+                    <li><Link to="/about">About</Link></li>
+                    <li><Link to="/contact">Contact</Link></li>
+                </ul>
+                {this.props.children}
+            </div>
+        );
+    }
+} export default App;
+
+export class Home extends React.Component{
+    render(){
+        return(
+            <div>
+                Home...
             </div>
         )
     }
 }
 
-class Content extends React.Component{
-    componentWillMount(){
-        alert('1 will mount');
-    }
-    componentDidMount(){
-        alert('2 did mount');
-    }
-    componentWillReceiveProps(nextProps){
-        alert('3 will receive props');
-        // console.log('3' + nextProps);
-    }
-    shouldComponentUpdate(nextProps, nextState){
-        return true;
-    }
-    componentWillUpdate(nextProps, nextState){
-        alert('4 ');
-    }
-    componentDidUpdate(prevProps, prevState){
-        alert(5);
-    }
-    componentWillUnmount() {
-        alert(6);
-    }
+export class About extends React.Component{
     render(){
         return(
             <div>
-                <h3>{this.props.myNumber}</h3>
+                About...
             </div>
         )
     }
 }
 
-export default App;
+export class Contact extends React.Component{
+    render(){
+        return(
+            <div>
+                Contact...
+            </div>
+        )
+    }
+}
